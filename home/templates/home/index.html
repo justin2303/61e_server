@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>61e Home</title>
+<link rel="stylesheet" href="{% static 'home/styles.css' %}">
+
+</head>
+<body>
+    
+    
+    <div >
+        <nav >
+            
+            <ul >        
+                <li><img style="cursor: pointer" id="playButton" class="logo" src="{% static 'home/logo61_2.png' %}" alt="Play Button">
+                    <audio style ="display:none" id="audioPlayer" controls>
+                        <source src="{% static 'home/polish_guard_song.mp3' %}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio></li>
+                    <script>
+                        document.getElementById('playButton').addEventListener('click', function() {
+                            var audio = document.getElementById('audioPlayer');
+                            if (audio.paused) {
+                                audio.play();
+                            } else {
+                                audio.pause();
+                            }
+                        });
+                        document.addEventListener('visibilitychange', function() {
+                            var audio = document.getElementById('audioPlayer');
+    if (document.visibilityState === 'hidden') {
+        if (!audio.paused){
+            audio.pause();
+            console.log("paused, user tabbed out");
+        }
+    } 
+});
+                    </script>
+                    
+                <li ><a href="{% url 'home' %}" style="text-decoration: underline;">Home</a>   
+                </li>
+                
+                      
+                <li><a href="{% url 'leaderboards' %}">Leaderboards</a>  
+                </li>
+                    
+                <li><a href="{% url 'Events' %}">Events</a>
+                </li>
+
+                <li><a href="{% url 'send_email_form' %}">Sign up for newsletter</a></li>
+                <li><a href="https://discord.com/invite/61e">Join our Discord!</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div><img class="flag" src="{% static 'home/logo61.png' %}"></div>
+    <div class="home_text">
+        <h2>Who are the 61e: </h2>
+        <p>&emsp;The 61e, established in 2014 by either Animal or Bastic (this information is still under debate) first began as the 61st Scottish Highlanders. Over time, Chinatown would take over and turn the regiment to the 61st Life Hussars then to the 61e Regiment Des Hussards. This regiment was surely destined to fail, but through the sheer will of everyone through the years, the regiment has strived and continued to succeed against all odds. Although, traditionally a cavalry regiment, the 61e is now an international regiment that plays a variety of classes across the world.
+        </p>
+        <p>
+        &emsp; King-Macbeth, having taken over at late 2015, the 61e temporarily merged and joined forces under Jakester’s 41st. This is where the 61e would learn much about running regiments and is proud to consider itself one of the last remaining vestiges of the 41st. Today the 61e strives to become known as the world’s public, casual, and international regiment that where no matter where anyone is from, the 61e will be the international regiment that will accept anyone of any background, any creed and any values as long as they hold the common goal of helping the regiment succeed.
+       For more history of the 61e, please consider reading the history doc <a 
+       href="https://docs.google.com/document/d/1lFGUC7OcqQ_DWL5Pa0erucB0s0tJh_h0qT6HUOLhiaw/edit" 
+       style="font-size: 13px; text-decoration:underline;">
+        here</a></p>
+        </div>
+        
+    <div class="home_text">
+        <h2>What kind of regiment are we: </h2>
+        <p>&emsp;The 61e is traditionally a cavalry regiment. However, the 61e now plays across the world as a variety of classes.
+            In North America, the 61e plays usually Cavalry, Artillery and sometimes Infantry. 
+            In Europe, the 61e plays Infantry and sometimes Cavalry. In South America, the 61e Infantry and Skirmishers. In Australia, 
+            the 61e plays Artillery and Infantry. In South East Asia, the 61e plays infantry. In China, the 61e plays infantry. 
+            These specializations are subject to change over time. Detachments do not exist in the 61e so all players follow the same ranking system.
+        </p>
+        <p>
+        &emsp; The regiment strives to be purely casual and to focus more on community rather than very competitive play. 
+        That is why since leaving the 41st, the 61e abolished all attendance quotas and has focused more on trying to make an 
+        environment where people are encouraged to come instead. The regiment has also been more committed to public play such as playing in 
+        the public NRP events like the campaign, the zombie events and other roleplay events across the world of NW.</p>
+        <p>
+            &emsp; urthermore, the 61e also strives to spread NW across the world and to expand the community so that the 61e is known internationally. We have learned that their is much to learn from 
+            all the regions of NW and we wish to capitalize form this.</p>
+    </div>
+
+
+</body>
+
+
+
+</html>

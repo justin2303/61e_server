@@ -1,0 +1,16 @@
+<!-- send_email_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Newsletter</title>
+</head>
+<body>
+    <h1>Sign up for mailing list</h1>
+    <form method="POST" action="{% url 'save_data' %}">
+        {% csrf_token %}
+        <label for="data">Enter your email address:</label>
+        <input type="text" id="data" name="data" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

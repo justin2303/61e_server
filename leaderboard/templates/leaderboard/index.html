@@ -1,0 +1,53 @@
+{% extends "leaderboard/layout.html" %}
+{% load static %}
+{% block body %}
+    <div class="container">
+        <div class="column1">
+    <table>
+        <tr>
+            <th>In-game Name</th>
+            <th>Kills</th>
+        </tr>
+        {% for Player in Players%}
+        <tr>
+            <td>
+                {% if "61e" in Player.user_name %}
+                    <span style="font-weight: bold; color: darkblue;">{{ Player.user_name }}</span>
+                {% else %}
+                    {{ Player.user_name }}
+                {% endif %}
+            </td>
+            <td>
+                {% if "61e" in Player.user_name %}
+                    <span style="font-weight: bold; color: darkblue;">{{ Player.kills }}</span>
+                {% else %}
+                {{Player.kills}}
+                {% endif %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="column2">
+    
+    <h2 class="lb" style="float: right;">
+        <p>This week's top player is <span style="font-weight: bold; color: rgb(108, 2, 4); text-decoration: underline;" >{{POW}}</span>!!!
+        </p>
+        <img src="{% static 'leaderboard/TPOW.png' %}" style="height:auto; width: 33%;">
+
+        <p>61e made up <span style="font-weight: bold; color: darkblue;">{{ percent_kill|floatformat:2 }}%</spaN> of the kills
+    in this week's NA event.</p>
+    <img src="{% static 'leaderboard/cuirassiers!.png' %}" style="height:auto; width: 33%;">
+    
+    <p>Out of the {{numbers}} people who came to the event, <span style="font-weight: bold; color: darkblue;">{{total_61}}</span> of them were 
+    <span style="font-weight: bold; color: darkblue;">61e</span>.</p>
+    <img src="{% static 'leaderboard/FR1.png' %}" style="height:auto; width: 33%;">
+    <p>Here are some stats from last Saturday's NA event:</p>
+    <img src="{% static 'home/att_plot.png' %}" style="height:auto; width: 60%;">
+   
+    </h2>
+    
+</div>
+    
+
+</div>
+{% endblock %}

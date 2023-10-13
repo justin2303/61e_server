@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>61e Events</title>
+<link rel="stylesheet" href="{% static 'home/styles.css' %}">
+</head>
+<body>
+    
+    <div >
+        <nav >
+            
+            <ul >        
+                <li><img style="cursor: pointer" id="playButton" class="logo" src="{% static 'home/logo61_2.png' %}" alt="Play Button">
+                    <audio style ="display:none" id="audioPlayer" controls>
+                        <source src="{% static 'home/polish_guard_song.mp3' %}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio></li>
+                    <script>
+                        document.getElementById('playButton').addEventListener('click', function() {
+                            var audio = document.getElementById('audioPlayer');
+                            if (audio.paused) {
+                                audio.play();
+                            } else {
+                                audio.pause();
+                            }
+                        });
+                        document.addEventListener('visibilitychange', function() {
+                            var audio = document.getElementById('audioPlayer');
+    if (document.visibilityState === 'hidden') {
+        if (!audio.paused){
+            audio.pause();
+            console.log("paused, user tabbed out");
+        }
+    } 
+});
+                    </script>
+                    
+                <li ><a href="{% url 'home' %}">Home</a>   
+                </li>
+                
+                      
+                <li><a href="{% url 'leaderboards' %}">Leaderboards</a>  
+                </li>
+                    
+                <li><a href="{% url 'Events' %}" style="text-decoration: underline;">Events</a>
+                </li>
+
+                <li><a href="{% url 'send_email_form' %}">Sign up for newsletter</a></li>
+                <li><a href="https://discord.com/invite/61e">Join our Discord!</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <h1 class="ct">Our Events</h1>
+    </div>
+
+    <div class="card-container">
+        <div class="card">
+        <img src="{% static 'home/NA_3.png' %}" alt="NA_event">
+        <p>NA Saturday Line battle at 8PM EST!</p>
+        </div>
+        <div class="card">
+            <img src="{% static 'home/SA_1.png' %}" alt="EU_event1">
+            <p>SA Sunday Line battle at 9PM EST!</p>
+            </div>
+            <div class="card">
+                <img src="{% static 'home/NA_Card.png' %}" alt="EU_event4">
+                <p>EU Friday Line battle at 7PM GMT!</p>
+                </div>
+    </div>
+
+    <div class="card-container">
+        <div class="card">
+        <img src="{% static 'home/EU_card3.png' %}" alt="EU_event2">
+        <p>EU Saturday Line battle at 7PM GMT!</p>
+        </div>
+        <div class="card">
+            <img src="{% static 'home/EU_card1.png' %}" alt="EU_event3">
+            <p>EU Sunday Line battle at 7PM GMT!</p>
+            </div>
+            <div class="card">
+                <img src="{% static 'home/EU_cb.png' %}" alt="EU_trash_ev">
+                <p>EU Thursday commander battle at 7PM GMT!</p>
+                </div>
+    </div>
+<div class="card-container">
+
+    <div class="card">
+    <img src="{% static 'home/SEA_1.png' %}" alt="SEA_event">
+    <p>SEA Line battle at 8PM GMT+8 (Beijing time)</p>
+    </div>
+</div>
+
+</body>
+
+
+
+</html>

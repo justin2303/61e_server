@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Leaderboards</title>
+<link rel="stylesheet" href="{% static 'leaderboard/styles.css' %}">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    
+    <div >
+        <nav >
+            <ul >        
+                <li><img style="cursor: pointer" id="playButton" class="logo" src="{% static 'home/logo61_2.png' %}" alt="Play Button">
+                    <audio style ="display:none" id="audioPlayer" controls>
+                        <source src="{% static 'home/polish_guard_song.mp3' %}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio></li>
+                    <script>
+                        document.getElementById('playButton').addEventListener('click', function() {
+                            var audio = document.getElementById('audioPlayer');
+                            if (audio.paused) {
+                                audio.play();
+                            } else {
+                                audio.pause();
+                            }
+                        });
+                        document.addEventListener('visibilitychange', function() {
+                            var audio = document.getElementById('audioPlayer');
+    if (document.visibilityState === 'hidden') {
+        if (!audio.paused){
+            audio.pause();
+            console.log("paused, user tabbed out");
+        }
+    } 
+});
+                    </script>
+                    
+                <li ><a href="{% url 'home' %}">Home</a>   
+                </li>
+                
+                      
+                <li><a href="{% url 'leaderboards' %}" style="text-decoration: underline;">Leaderboards</a>  
+                </li>
+                    
+                <li><a href="{% url 'Events' %}">Events</a>
+                </li>
+
+                <li><a href="{% url 'send_email_form' %}">Sign up for newsletter</a></li>
+                <li><a href="https://discord.com/invite/61e">Join our Discord!</a></li>
+            </ul>
+        </nav>
+    </div>
+    {% block body%}
+    {% endblock%}
+    
+
+
+</body>
+
+
+
+</html>
