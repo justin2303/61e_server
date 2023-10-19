@@ -5,11 +5,14 @@ The other modules are:
 1. home
 2. leaderboard
 3. send
+\n
 home:
 Consists of the templates to render for the homepage, and the events page.
+\n
 leaderboard:
 Consists of the template for the leaderboards page, the SQL models for the leaderboards database,
 and the scripts for filling in, deleting, and plotting the leaderboards database (you can find these in /leaderboard/management/commands/).
+\n
 send:
 Consists of the code required to run an async newsletter email server using celery.
 
