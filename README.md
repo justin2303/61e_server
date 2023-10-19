@@ -23,6 +23,6 @@ Consists of the code required to run an async newsletter email server using cele
 You can check out the server now using the url: https://jc0323.pythonanywhere.com/
 the leaderboards page is updated every Saturday after the Line battle hosted by 61e, as that is when the server logs are available for parsing. 
 It is both a way for 61e members to track their kills (and also non-61e) but also going to be a part of my next React.js project, which is going to be
-both a trading card website for 61e, and also a rewards system that gives members chances to get trading cards based on attendance and kills. 
+both a card trading webapp for 61e, and also a rewards system that gives members chances to get cards and badges based on attendance and kills, show them off, and trade.
 
 
