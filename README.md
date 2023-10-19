@@ -5,17 +5,21 @@ The other modules are:
 1. home
 2. leaderboard
 3. send
-\n
+
+  
 home:
 Consists of the templates to render for the homepage, and the events page.
-\n
+
+  
 leaderboard:
 Consists of the template for the leaderboards page, the SQL models for the leaderboards database,
 and the scripts for filling in, deleting, and plotting the leaderboards database (you can find these in /leaderboard/management/commands/).
-\n
+
+  
 send:
 Consists of the code required to run an async newsletter email server using celery.
 
+  
 You can check out the server now using the url: https://jc0323.pythonanywhere.com/
 the leaderboards page is updated every Saturday after the Line battle hosted by 61e, as that is when the server logs are available for parsing. 
 It is both a way for 61e members to track their kills (and also non-61e) but also going to be a part of my next React.js project, which is going to be
