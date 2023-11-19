@@ -13,7 +13,7 @@ def find_user(str1):
                 break
         #else continue
         str2+=str1[x]
-    
+
     return str2.replace(" ","")
 
 
@@ -34,7 +34,7 @@ def find_ID(str1):
         ID+=str1[x]
 
     print(f"ID of {ID} found")
-  
+
     return ID.replace(" ","")
 
 def find_TK(str1):
@@ -49,7 +49,7 @@ def find_TK(str1):
             break
     for x in range(11, y):
         tk_name+=str1[x]
-    
+
     return tk_name.replace(" ", "")
 
 def find_death(str1):
@@ -59,11 +59,11 @@ def find_death(str1):
         if(str1[x]=='>'):
             y=x
             break
-    
+
     for x in range(y,len(str1)):
         str2+=str1[x]
-    
-    
+
+
     return str2.replace(" ","")
 
 def find_kill(str1):
@@ -71,10 +71,10 @@ def find_kill(str1):
     for x in range(11,len(str1)):
         if(str1[x]=='<'):
             break
-        
+
         str2+=str1[x]
-    
-   
+
+
     return str2.replace(" ", "")
 
 class Command(BaseCommand):
@@ -89,22 +89,39 @@ class Command(BaseCommand):
         with open(file_path, 'r') as file:
             line = file.readline()
             cond1=("Has reset the Map.") in line and ("[SERVER]") in line and line.startswith(" 19:")
-            
+
             while(not cond1):
                 if("has joined the game with ID:") in line:
                     print(f"{line}")
                     username=find_user(line)
                     guid=find_ID(line)
-                    print(f"Checking player with GUID: {guid} and username: {username}")
+                    temp_bool=0
                     try:
-                        player = Player.objects.get(GUID=guid)
-                        print(f"player with ID: {guid} already exists, updating username")
-                        player.user_name = username
-                        player.save()
+                        player = Player.objects.get(user_name=username)
+                        temp_bool=1#duplicate username
+                    except Player.DoesNotExist:#then move on
+                        print(f"player with username: {username} doesn't exist yet.")
+                        temp_bool=0
+                    if(temp_bool == 1):
+                        try:
+                            player = Player.objects.get(user_name=username)
+                            player.delete()
+                            Player.objects.create(user_name=username,GUID=guid)
+
+                        except Player.DoesNotExist:#then move on
+                            print(f"player with username: {username} doesn't exist yet.")
+
+                    else:
+                        try:
+                            print(f"Checking player with GUID: {guid} and username: {username}")
+                            player = Player.objects.get(GUID=guid)
+                            print(f"player with ID: {guid} already exists, updating username")
+                            player.user_name = username
+                            player.save()
                     # You can now work with the 'player' object
-                    except Player.DoesNotExist:#then create the player
-                        print(f"player with ID: {guid} doesn't exist yet, creating user")
-                        Player.objects.create(user_name=username,GUID=guid)
+                        except Player.DoesNotExist:#then create the player
+                            print(f"player with ID: {guid} doesn't exist yet, creating user {username}")
+                            Player.objects.create(user_name=username,GUID=guid)
                 line = file.readline()
                 cond1=("Has reset the Map.") in line and ("[SERVER]") in line and line.startswith(" 19:") #redefine condition
             #now the event started, we can do kill counts
@@ -115,21 +132,37 @@ class Command(BaseCommand):
                     print(f"{line}")
                     username=find_user(line)
                     guid=find_ID(line)
-                    print(f"Checking player with GUID: {guid} and username: {username}")
+                    temp_bool=0
                     try:
-                        player = Player.objects.get(GUID=guid)
-                        print(f"player with ID: {guid} already exists, updating username")
-                        player.user_name = username
-                        player.save()
+                        player = Player.objects.get(user_name=username)
+                        temp_bool=1#duplicate username
+                    except Player.DoesNotExist:#then move on
+                        print(f"player with username: {username} doesn't exist yet.")
+                        temp_bool=0
+                    if(temp_bool == 1):
+                        try:
+                            player = Player.objects.get(user_name=username)
+                            temp_kills = player.kills
+                            player.delete()
+                            Player.objects.create(user_name=username,GUID=guid, kills = temp_kills)
+                        except Player.DoesNotExist:#then move on
+                            print(f"player with username: {username} doesn't exist yet.")
+
+                    else:
+                        try:
+                            print(f"Checking player with GUID: {guid} and username: {username}")
+                            player = Player.objects.get(GUID=guid)
+                            print(f"player with ID: {guid} already exists, updating username")
+                            player.user_name = username
+                            player.save()
                     # You can now work with the 'player' object
-                    except Player.DoesNotExist:#then create the player
-                        print(f"player with ID: {guid} doesn't exist yet, creating user {username}")
-                        Player.objects.create(user_name=username,GUID=guid)
+                        except Player.DoesNotExist:#then create the player
+                            print(f"player with ID: {guid} doesn't exist yet, creating user {username}")
+                            Player.objects.create(user_name=username,GUID=guid)
                 #checked for incoming player
                 elif ("<img=ico_") in line:
                     print(f"{line}")
                     username=find_kill(line)
-                    
                     print(f"Checking player with name: {username} and updating kills")
                     try:
                         player = Player.objects.get(user_name=username)
@@ -152,7 +185,28 @@ class Command(BaseCommand):
                         print("what...")
                 line = file.readline()
                 cond2=("New round started.") in line and  line.startswith(" 20:") #reset the conditional
-        serv_player = Player.objects.get(user_name="SERVER")#some reason server gets detected somehow..
-        serv_player.delete()
-        
-        
+
+
+        try:
+            serv_player = Player.objects.get(user_name="SERVER")#some reason server gets detected somehow..
+            serv_player.delete()
+            # You can now work with the 'player' object
+        except Player.DoesNotExist:#then create the player
+            print("server player doesnt exist")
+
+        for x in Player.objects.all():
+            x.user_name = x.user_name.replace("nig","friend")
+            x.save()
+            x.user_name = x.user_name.replace("Aryan", "buddy")
+            x.save()
+            x.user_name = x.user_name.replace("fag", "flower")
+            x.save()
+            x.user_name = x.user_name.replace("Jew", "bud")
+            x.save()
+            x.user_name = x.user_name.replace("fuck", "potato")
+            x.save()
+            x.user_name = x.user_name.replace("shit", "soil")
+            x.save()
+            x.user_name = x.user_name.replace("bitch", "rose")
+            x.save()
+
