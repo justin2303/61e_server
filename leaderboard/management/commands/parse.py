@@ -124,7 +124,7 @@ class Command(BaseCommand):
                             Player.objects.create(user_name=username,GUID=guid)
                 line = file.readline()
                 cond1=("Has reset the Map.") in line and ("[SERVER]") in line and line.startswith(" 19:") #redefine condition
-            #now the event started, we can do kill counts
+            #now the event started, we can do kill counts, typically starts at 7-7:15PM EST
             print("NOW THE SECOND ONE STARTS!!!!")
             cond2=("ty all") in line and ("K-Macbeth") in line
             while(not cond2):#when both are in line, then event is over.
@@ -181,11 +181,11 @@ class Command(BaseCommand):
                         player.kills-=1
                         player.save()
                         print("teamkill found")
-                    except Player.DoesNotExist:#how the fuck... we'll see if this ever happens.
+                    except Player.DoesNotExist:#how... we'll see if this ever happens.
                         print("what...")
                 line = file.readline()
                 cond2=("ty all") in line and ("K-Macbeth") in line
-
+            #typicaly ends when king macbeth 61e says "ty all for coming" or some permutation of that...
 
         try:
             serv_player = Player.objects.get(user_name="SERVER")#some reason server gets detected somehow..
@@ -198,13 +198,21 @@ class Command(BaseCommand):
         for x in Player.objects.all():
             original_username = x.user_name
             lower_username = original_username.lower()
-            lower_username = lower_username.replace("nig", "friend")
+            lower_username = lower_username.replace("nigg", "friend")
             lower_username = lower_username.replace("aryan", "buddy")
             lower_username = lower_username.replace("fag", "flower")
             lower_username = lower_username.replace("jew", "bud")
             lower_username = lower_username.replace("fuck", "potato")
             lower_username = lower_username.replace("shit", "soil")
             lower_username = lower_username.replace("bitch", "rose")
+            lower_username = lower_username.replace("rape", "rope")
+            lower_username = lower_username.replace("rapi", "violet")
+            lower_username = lower_username.replace("pussy", "cat")
+            lower_username = lower_username.replace("penis", "tree")
+            #this looks bad but it's better than getting cancelled.
             if lower_username != original_username.lower():
+                #its imperfect but i dont want to store capitals location and then remap them here. It's not my fault you
+                #decided to have a name that offends people who are good at complaining. If it was up to me I'd just delete it.
+                #but for the sake of tallying how well regiments performed, I'll keep at least the kills info correct.
                 x.user_name = lower_username
                 x.save()
