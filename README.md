@@ -23,5 +23,5 @@ Consists of the code required to run an async newsletter email server using cele
 You can check out the server now using the url: https://jc0323.pythonanywhere.com/
 the leaderboards page is updated every Saturday after the Line battle hosted by 61e, as that is when the server logs are available for parsing. 
 
-
+(commits are done.. whenever i feel like it. Code is often fiddled with for the website on the URL when something needs to be changed, or a bug appears.)
 
