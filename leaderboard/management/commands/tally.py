@@ -34,8 +34,8 @@ class Command(BaseCommand):
         plt.xlabel('Regiments who attended the 61e Saturday event')
         plt.ylabel('People Brought')
         plt.title('Attendence Plot')
-        plt.savefig('home/static/home/att_plot.png', format='png')
-        Regiments.objects.create(date = date,reg_61e=count_61, reg_CSC=count_CSC, reg_84th=count_84, reg_85th=count_85, reg_ERB=count_ERB, 
+        plt.savefig('home/static/home/att_plot1.png', format='png')
+        Regiments.objects.create(date = date,reg_61e=count_61, reg_CSC=count_CSC, reg_84th=count_84, reg_85th=count_85, reg_ERB=count_ERB,
                                  reg_1aGIB=count_GIB, reg_pubs=count_pubs, reg_BAS=count_BAS, total = count_total)
         """
         X_tit=[]

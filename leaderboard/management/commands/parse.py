@@ -126,7 +126,7 @@ class Command(BaseCommand):
                 cond1=("Has reset the Map.") in line and ("[SERVER]") in line and line.startswith(" 19:") #redefine condition
             #now the event started, we can do kill counts
             print("NOW THE SECOND ONE STARTS!!!!")
-            cond2=("New round started.") in line and  line.startswith(" 20:")
+            cond2=("ty all") in line and ("K-Macbeth") in line
             while(not cond2):#when both are in line, then event is over.
                 if("has joined the game with ID:") in line:
                     print(f"{line}")
@@ -184,7 +184,7 @@ class Command(BaseCommand):
                     except Player.DoesNotExist:#how the fuck... we'll see if this ever happens.
                         print("what...")
                 line = file.readline()
-                cond2=("New round started.") in line and  line.startswith(" 20:") #reset the conditional
+                cond2=("ty all") in line and ("K-Macbeth") in line
 
 
         try:
@@ -194,19 +194,17 @@ class Command(BaseCommand):
         except Player.DoesNotExist:#then create the player
             print("server player doesnt exist")
 
+        print("filtering names...")
         for x in Player.objects.all():
-            x.user_name = x.user_name.replace("nig","friend")
-            x.save()
-            x.user_name = x.user_name.replace("Aryan", "buddy")
-            x.save()
-            x.user_name = x.user_name.replace("fag", "flower")
-            x.save()
-            x.user_name = x.user_name.replace("Jew", "bud")
-            x.save()
-            x.user_name = x.user_name.replace("fuck", "potato")
-            x.save()
-            x.user_name = x.user_name.replace("shit", "soil")
-            x.save()
-            x.user_name = x.user_name.replace("bitch", "rose")
-            x.save()
-
+            original_username = x.user_name
+            lower_username = original_username.lower()
+            lower_username = lower_username.replace("nig", "friend")
+            lower_username = lower_username.replace("aryan", "buddy")
+            lower_username = lower_username.replace("fag", "flower")
+            lower_username = lower_username.replace("jew", "bud")
+            lower_username = lower_username.replace("fuck", "potato")
+            lower_username = lower_username.replace("shit", "soil")
+            lower_username = lower_username.replace("bitch", "rose")
+            if lower_username != original_username.lower():
+                x.user_name = lower_username
+                x.save()
